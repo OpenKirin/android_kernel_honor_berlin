@@ -1,0 +1,22 @@
+#!/system/bin/sh
+
+echo $1 > /sys/kernel/debug/fault_inflood/test_case
+if test $? -ne 0
+then
+	exit 160
+fi
+
+node_addr=$(cat /sys/kernel/debug/fault_inflood/test_case)
+if test $? -ne 0
+then
+	exit 161
+fi
+
+echo ${node_addr} > /sys/kernel/debug/fault_inflood/test_rslt
+if test $? -ne 0
+then
+	exit 162
+fi
+
+ecall testrslt_read
+exit $?
