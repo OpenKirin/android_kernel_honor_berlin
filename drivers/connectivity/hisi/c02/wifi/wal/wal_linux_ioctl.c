@@ -11058,10 +11058,15 @@ oal_int32  wal_hipriv_wait_rsp(oal_net_device_stru *pst_net_dev, oal_int8 *pc_pa
     修改内容   : 新生成函数
 
 *****************************************************************************/
+#if defined(CONFIG_MODULES)
 OAL_STATIC oal_int32  wal_hipriv_proc_write(oal_file_stru *pst_file, oal_int8 *pc_buffer, oal_uint32 ul_len, oal_void *p_data)
+#endif
 #else
+#if defined(CONFIG_MODULES)
 OAL_STATIC oal_int32  wal_hipriv_proc_write(oal_file_stru *pst_file, const oal_int8 *pc_buffer, oal_uint32 ul_len, oal_void *p_data)
 #endif
+#endif
+#if defined(CONFIG_MODULES)
 {
     oal_int8                    *pc_cmd;
     oal_uint32                  ul_ret;
@@ -11137,7 +11142,7 @@ OAL_STATIC oal_int32  wal_hipriv_proc_write(oal_file_stru *pst_file, const oal_i
     return (oal_int32)ul_len;
 
 }
-
+#endif
 /*****************************************************************************
  函 数 名  : wal_create_hipriv_proc
  功能描述  : 创建proc入口
@@ -15527,7 +15532,9 @@ OAL_STATIC oal_int32 wal_ioctl_get_vowifi_param(oal_net_device_stru *pst_net_dev
 #endif /* _PRE_WLAN_FEATURE_VOWIFI */
 
 /*lint -e19*/
+#if defined(CONFIG_MODULES)
 oal_module_symbol(wal_hipriv_proc_write);
+#endif
 oal_module_symbol(wal_hipriv_get_mac_addr);
 #ifdef _PRE_WLAN_FEATURE_HILINK
 oal_module_symbol(wal_config_get_all_sta_info);
